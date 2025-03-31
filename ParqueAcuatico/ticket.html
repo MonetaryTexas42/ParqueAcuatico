@@ -1,0 +1,376 @@
+<!-- Ticket.html con hospedaje ajustable -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generar Ticket - AquaParaíso</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/estilos.css" />
+  <style>
+    #hospedajeOpciones {
+      display: none;
+      transition: all 0.3s ease-in-out;
+    }
+    #sugerenciaHospedaje {
+      font-style: italic;
+      color: #05668d;
+      margin-top: 10px;
+    }
+    #tablaSugerencias {
+      display: none;
+    }
+    #tablaSugerencias table {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container py-5">
+    <h2 class="text-center mb-4">Compra de Entradas y Servicios</h2>
+    <form id="formCompra">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" id="nombre" required />
+        </div>
+        <div class="col-md-6">
+          <label for="codigo" class="form-label">Código de Cliente</label>
+          <input type="text" class="form-control" id="codigo" readonly />
+        </div>
+      </div>
+
+      <h5 class="mt-4">Entradas</h5>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label>Adultos ($180 c/u)</label>
+          <input type="number" class="form-control" id="adultos" value="0" min="0" />
+        </div>
+        <div class="col-md-6">
+          <label>Niños ($120 c/u)</label>
+          <input type="number" class="form-control" id="ninos" value="0" min="0" />
+        </div>
+      </div>
+
+      <h5 class="mt-4">Extras</h5>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>Sillas ($30 c/u)</label>
+          <input type="number" class="form-control" id="sillas" value="0" min="0" />
+        </div>
+        <div class="col-md-4">
+          <label>Mesas ($50 c/u)</label>
+          <input type="number" class="form-control" id="mesas" value="0" min="0" />
+        </div>
+        <div class="col-md-4">
+          <label>Sombrillas ($50 c/u)</label>
+          <input type="number" class="form-control" id="sombrillas" value="0" min="0" />
+        </div>
+      </div>
+
+      <div class="form-check form-switch mt-4">
+        <input class="form-check-input" type="checkbox" id="toggleHospedaje" />
+        <label class="form-check-label" for="toggleHospedaje">¿Desea hospedarse?</label>
+      </div>
+
+      <div id="hospedajeOpciones" class="mt-3">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="personasHospedaje">¿Cuántas personas se hospedarán?</label>
+            <input type="number" class="form-control" id="personasHospedaje" min="1" value="1">
+          </div>
+        </div>
+
+        <div id="sugerenciaHospedaje"></div>
+        <div id="tablaSugerencias"></div>
+
+        <h5 class="mt-4">Opciones de Hospedaje</h5>
+        <p class="text-muted">Puedes ajustar tu elección en cualquier momento, esta sugerencia es solo una guía.</p>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Cabaña para 4 personas ($2500)</label>
+            <input type="number" class="form-control" id="cabana4" value="0" min="0" />
+          </div>
+          <div class="col-md-4">
+            <label>Cabaña para 6 personas ($3000)</label>
+            <input type="number" class="form-control" id="cabana6" value="0" min="0" />
+          </div>
+          <div class="col-md-4">
+            <label>Casa de campaña (4 personas - $150)</label>
+            <input type="number" class="form-control" id="camp4" value="0" min="0" />
+          </div>
+          <div class="col-md-6 mt-3">
+            <label>Casa de campaña (8 personas - $180)</label>
+            <input type="number" class="form-control" id="camp8" value="0" min="0" />
+          </div>
+          <div class="col-md-6 mt-3">
+            <label>Casa de campaña (12 personas - $220)</label>
+            <input type="number" class="form-control" id="camp12" value="0" min="0" />
+          </div>
+          <div class="col-md-6 mt-3">
+            <label>Espacio para casa propia ($350)</label>
+            <input type="number" class="form-control" id="espacio" value="0" min="0" />
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn custom-btn mt-3">Generar Ticket</button>
+    </form>
+
+    <section id="ticket" class="mt-5" style="display: none">
+      <h3 class="text-center">Ticket de Compra</h3>
+      <p><strong>Cliente:</strong> <span id="resNombre"></span></p>
+      <p><strong>Código:</strong> <span id="resCodigo"></span></p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="detalleCompra"></tbody>
+        <tfoot>
+          <tr>
+            <th colspan="2" class="text-end">TOTAL A PAGAR</th>
+            <th id="totalPagar">$0</th>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+  </main>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-outline-secondary" onclick="descargarTicket()">Descargar Ticket</button>
+  </div>
+
+
+  <script>
+    document.getElementById("codigo").value = "C-" + Math.floor(Math.random() * 1000000);
+
+    const toggleHospedaje = document.getElementById("toggleHospedaje");
+    const hospedajeOpciones = document.getElementById("hospedajeOpciones");
+    const sugerenciaHospedaje = document.getElementById("sugerenciaHospedaje");
+    const tablaSugerencias = document.getElementById("tablaSugerencias");
+
+    toggleHospedaje.addEventListener("change", () => {
+      if (toggleHospedaje.checked) {
+        hospedajeOpciones.style.display = "block";
+        actualizarSugerencias();
+      } else {
+        hospedajeOpciones.style.display = "none";
+        sugerenciaHospedaje.textContent = "";
+        tablaSugerencias.innerHTML = "";
+      }
+    });
+
+    document.getElementById("personasHospedaje").addEventListener("input", actualizarSugerencias);
+
+    function actualizarSugerencias() {
+  const total = parseInt(document.getElementById("personasHospedaje").value) || 0;
+  sugerenciaHospedaje.textContent = `Total de personas a hospedarse: ${total}.`;
+  let tabla = "<table class='table table-sm table-bordered'><thead><tr><th>Recomendación</th><th>Descripción</th><th>Acción</th></tr></thead><tbody>";
+
+  if (total <= 4) {
+    tabla += fila("1-4", "Cabaña para 4", { cabana4: 1 });
+    tabla += fila("1-4", "Casa de campaña para 4", { camp4: 1 });
+  } else if (total <= 6) {
+    tabla += fila("5-6", "Cabaña para 6", { cabana6: 1 });
+    tabla += fila("5-6", "Casa de campaña para 8", { camp8: 1 });
+  } else if (total <= 8) {
+    tabla += fila("7-8", "Casa de campaña para 8", { camp8: 1 });
+    tabla += fila("7-8", "2 casas de campaña para 4", { camp4: 2 });
+  } else if (total <= 12) {
+    tabla += fila("9-12", "Cabaña para 6 + campaña para 4", { cabana6: 1, camp4: 1 });
+    tabla += fila("9-12", "Casa de campaña para 12", { camp12: 1 });
+  } else {
+    tabla += fila(">12", "2 cabañas de 6 + una de 4", { cabana6: 2, cabana4: 1 });
+    tabla += fila(">12", "Casa de campaña de 12 + campaña de 8", { camp12: 1, camp8: 1 });
+  }
+
+  tabla += "</tbody></table>";
+  tablaSugerencias.innerHTML = tabla;
+  tablaSugerencias.style.display = "block";
+}
+
+function fila(rango, desc, data) {
+  let attrs = Object.entries(data).map(([k, v]) => `data-${k}="${v}"`).join(" ");
+  return `<tr><td>${rango}</td><td>${desc}</td><td><button type='button' class='btn btn-sm btn-outline-primary aplicar-sugerencia' ${attrs}>Aplicar</button></td></tr>`;
+}
+
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("aplicar-sugerencia")) {
+        const campos = ["cabana4", "cabana6", "camp4", "camp8", "camp12"];
+        campos.forEach(id => {
+          if (document.getElementById(id)) document.getElementById(id).value = 0;
+        });
+        for (let key in e.target.dataset) {
+          if (document.getElementById(key)) {
+            document.getElementById(key).value = e.target.dataset[key];
+          }
+        }
+      }
+    });
+
+    document.getElementById("formCompra").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const codigo = document.getElementById("codigo").value;
+
+      const precios = {
+        adultos: 180,
+        ninos: 120,
+        sillas: 30,
+        mesas: 50,
+        sombrillas: 50,
+        cabana4: 2500,
+        cabana6: 3000,
+        camp4: 150,
+        camp8: 180,
+        camp12: 220,
+        espacio: 350
+      };
+
+      const cantidades = {};
+      for (let id in precios) {
+        const el = document.getElementById(id);
+        if (el) cantidades[id] = parseInt(el.value) || 0;
+      }
+
+      let total = 0;
+      let detalle = "";
+      for (let item in cantidades) {
+        if (cantidades[item] > 0) {
+          const subtotal = cantidades[item] * precios[item];
+          total += subtotal;
+          const nombreServicio = {
+            adultos: "Entradas Adulto",
+            ninos: "Entradas Niño",
+            sillas: "Sillas",
+            mesas: "Mesas",
+            sombrillas: "Sombrillas",
+            cabana4: "Cabaña para 4",
+            cabana6: "Cabaña para 6",
+            camp4: "Casa Campaña 4",
+            camp8: "Casa Campaña 8",
+            camp12: "Casa Campaña 12",
+            espacio: "Espacio Casa Propia"
+          }[item];
+          detalle += `<tr><td>${nombreServicio}</td><td>${cantidades[item]}</td><td>$${subtotal}</td></tr>`;
+        }
+      }
+
+      document.getElementById("resNombre").textContent = nombre;
+      document.getElementById("resCodigo").textContent = codigo;
+      document.getElementById("detalleCompra").innerHTML = detalle;
+      document.getElementById("totalPagar").textContent = "$" + total;
+      document.getElementById("ticket").style.display = "block";
+    });
+
+    function descargarTicket() {
+      const ventas = JSON.parse(localStorage.getItem("ventasAqua")) || [];
+      if (ventas.length === 0) return alert("No hay tickets para descargar");
+
+      const ultima = ventas[ventas.length - 1];
+      let contenido = `Cliente: ${ultima.nombre}\nCódigo: ${ultima.codigo}\n\nDetalle de Compra:\n`;
+
+      ultima.items.forEach(i => {
+        contenido += `- ${i.nombre} x ${i.cantidad} = $${i.subtotal}\n`;
+      });
+
+      contenido += `\nTOTAL: $${ultima.total}`;
+
+      const blob = new Blob([contenido], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `ticket_${ultima.codigo}.txt`;
+      link.click();
+    }
+
+    document.getElementById("formCompra").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const codigo = document.getElementById("codigo").value;
+
+      const precios = {
+        adultos: 180,
+        ninos: 120,
+        sillas: 30,
+        mesas: 50,
+        sombrillas: 50,
+        cabana4: 2500,
+        cabana6: 3000,
+        camp4: 150,
+        camp8: 180,
+        camp12: 220,
+        espacio: 350
+      };
+
+      const cantidades = {};
+      for (let id in precios) {
+        const el = document.getElementById(id);
+        if (el) cantidades[id] = parseInt(el.value) || 0;
+      }
+
+      let total = 0;
+      let detalle = "";
+      for (let item in cantidades) {
+        if (cantidades[item] > 0) {
+          const subtotal = cantidades[item] * precios[item];
+          total += subtotal;
+          const nombreServicio = {
+            adultos: "Entradas Adulto",
+            ninos: "Entradas Niño",
+            sillas: "Sillas",
+            mesas: "Mesas",
+            sombrillas: "Sombrillas",
+            cabana4: "Cabaña para 4",
+            cabana6: "Cabaña para 6",
+            camp4: "Casa Campaña 4",
+            camp8: "Casa Campaña 8",
+            camp12: "Casa Campaña 12",
+            espacio: "Espacio Casa Propia"
+          }[item];
+          detalle += `<tr><td>${nombreServicio}</td><td>${cantidades[item]}</td><td>$${subtotal}</td></tr>`;
+        }
+      }
+
+      // Guardar en localStorage
+      const ventas = JSON.parse(localStorage.getItem("ventasAqua")) || [];
+      ventas.push({
+        nombre,
+        codigo,
+        items: Object.entries(cantidades).filter(([k, v]) => v > 0).map(([k, v]) => ({
+          nombre: {
+            adultos: "Entradas Adulto",
+            ninos: "Entradas Niño",
+            sillas: "Sillas",
+            mesas: "Mesas",
+            sombrillas: "Sombrillas",
+            cabana4: "Cabaña para 4",
+            cabana6: "Cabaña para 6",
+            camp4: "Casa Campaña 4",
+            camp8: "Casa Campaña 8",
+            camp12: "Casa Campaña 12",
+            espacio: "Espacio Casa Propia"
+          }[k],
+          cantidad: v,
+          subtotal: v * precios[k]
+        })),
+        total
+      });
+      localStorage.setItem("ventasAqua", JSON.stringify(ventas));
+
+      document.getElementById("resNombre").textContent = nombre;
+      document.getElementById("resCodigo").textContent = codigo;
+      document.getElementById("detalleCompra").innerHTML = detalle;
+      document.getElementById("totalPagar").textContent = "$" + total;
+      document.getElementById("ticket").style.display = "block";
+    });
+  </script>
+</body>
+
+</html>

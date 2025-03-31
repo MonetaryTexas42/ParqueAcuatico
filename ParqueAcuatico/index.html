@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parque Acuático AquaParaíso</title>
+
+    <!-- Fuentes y Estilos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-festava-live.css" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet">
+
+</head>
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal-experiencia" id="modalExperiencia">
+  <span class="close-btn" id="closeModal">&times;</span>
+  <img id="modalImg" src="" alt="">
+  <h4 id="modalTitulo"></h4>
+  <p id="modalTexto"></p>
+  <a href="ticket.html" class="btn custom-btn">Reservar ahora</a>
+</div>
+
+<body>
+    <main>
+        <!-- Header Bienvenida -->
+        <header class="site-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 d-flex flex-wrap">
+                        <p class="d-flex me-4 mb-0">
+                            <i class="bi-water me-2"></i>
+                            <strong class="text-dark">Bienvenido a AquaParaíso</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">AquaParaíso</a>
+                <a href="ticket.html" class="btn custom-btn d-lg-none ms-auto me-4">Comprar</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto me-lg-5">
+                        <li class="nav-item"><a class="nav-link click-scroll" href="#section_1">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link click-scroll" href="#section_2">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link click-scroll" href="#section_3">Galería</a></li>
+                        <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">Horarios y Reglas</a></li>
+                        <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Costos</a></li>
+                        <li class="nav-item"><a class="nav-link click-scroll" href="#section_6">Contacto</a></li>
+                    </ul>
+                    <a href="ticket.html" class="btn custom-btn d-none d-lg-block">Comprar</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Seccion 1: Inicio -->
+        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+            <video autoplay loop muted class="background-video">
+                <source src="video/VIDEO AIR-DRONE PIURA - AQUAPARK CATACAOS.mp4" type="video/mp4">
+            </video>
+            <div class="container text-center">
+                <h1 class="text-white">Diversión acuática para toda la familia</h1>
+                <p class="text-white">Albercas, toboganes, cabañas, camping y mucho más</p>
+                <a href="#section_5" class="btn custom-btn smoothscroll mt-3">Ver Costos</a>
+            </div>
+        </section>
+
+       <!-- Sección Experiencias AquaParaíso -->
+       <section class="experiencias-section section-padding" id="section_2">
+        <div class="container text-center mb-4">
+            <h2>Experiencias AquaParaíso</h2>
+            <p>Descubre nuestras atracciones y espacios para disfrutar al máximo</p>
+        </div>
+        <div class="position-relative">
+            <button id="prevBtn" class="carousel-arrow left">&#10094;</button>
+            <button id="nextBtn" class="carousel-arrow right">&#10095;</button>
+            <div class="experiencias-container d-flex overflow-auto" id="carousel-experiencias">
+        <div class="experiencia-item"><img src="img/alberca_familiar.jpg" alt="Alberca Familiar"><div class="experiencia-content"><h5>Alberca Familiar</h5><p>Ideal para convivir y refrescarse en grupo. Ambiente seguro y divertido.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/alberca_infantil.jpg" alt="Alberca Infantil"><div class="experiencia-content"><h5>Alberca Infantil</h5><p>Zona segura para los más pequeños. Supervisión y diversión garantizada.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/toboganes.jpg" alt="Toboganes"><div class="experiencia-content"><h5>Toboganes y Alberca de Olas</h5><p>Emoción y adrenalina para chicos y grandes en cada deslizamiento.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/lago.jpg" alt="Lago Natural"><div class="experiencia-content"><h5>Lago Natural</h5><p>Entorno natural y tranquilo para descansar y disfrutar la vista.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/cabaña4.jpg" alt="Cabaña 4"><div class="experiencia-content"><h5>Cabañas (4 personas)</h5><p>Hospedaje acogedor con todas las comodidades para tu descanso.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/cabaña6.jpg" alt="Cabaña 6"><div class="experiencia-content"><h5>Cabañas (6 personas)</h5><p>Amplias y cómodas para familias o grupos más grandes.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/camping.jpg" alt="Camping"><div class="experiencia-content"><h5>Área de Camping</h5><p>Acampa en contacto con la naturaleza. Espacios amplios y seguros.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/casasdecampaña.jpg" alt="Casas de campaña"><div class="experiencia-content"><h5>Casas de Campaña</h5><p>Disponibles en varias capacidades. Listas para usarse al momento.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/asador.jpg" alt="Asadores"><div class="experiencia-content"><h5>Asadores</h5><p>Prepara tus alimentos al aire libre con instalaciones seguras.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/areverde.jpg" alt="Áreas verdes"><div class="experiencia-content"><h5>Áreas verdes</h5><p>Relájate bajo la sombra o realiza actividades al aire libre.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/regaderas.jpg" alt="Regaderas"><div class="experiencia-content"><h5>Regaderas</h5><p>Servicios higiénicos limpios y disponibles todo el día.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/estacionamiento.jpg" alt="Estacionamiento"><div class="experiencia-content"><h5>Estacionamiento</h5><p>Amplio espacio para tu comodidad y seguridad.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/medico.jpg" alt="Servicio Médico"><div class="experiencia-content"><h5>Servicio Médico</h5><p>Atención de primeros auxilios disponible 24/7.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+        <div class="experiencia-item"><img src="img/seguridad.jpg" alt="Seguridad"><div class="experiencia-content"><h5>Seguridad 24 Hrs</h5><p>Tu bienestar es nuestra prioridad. Personal de seguridad siempre presente.</p><a href="ticket.html" class="btn custom-btn">Reservar</a></div></div>
+    </div>
+</section>
+<!-- Fin Sección Experiencias -->
+
+
+        <!-- Seccion 3: Galeria -->
+        <section id="section_3" class="section-padding section-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center mb-4">
+                        <h2>Galería</h2>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <img src="img/alberca_familiar.jpg" class="img-fluid rounded" alt="Alberca">
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <img src="img/cabaña6.jpg" class="img-fluid rounded" alt="Cabaña">
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <img src="img/camping.jpg" class="img-fluid rounded" alt="Camping">
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <img src="img/lago.jpg" class="img-fluid rounded" alt="Lago natural">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- Seccion 4: Reglas -->
+        <section id="section_4" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center mb-4">
+                        <h2>Horarios y Reglas</h2>
+                        <p>Abierto todos los días de 9:00 a.m. a 8:00 p.m. Seguridad y servicio médico disponibles las 24 hrs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <!-- Sección 5: Costos Actualizada -->
+<section id="section_5" class="section-padding section-bg">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-12 mb-4">
+          <h2>Costos</h2>
+        </div>
+        <div class="col-lg-6">
+          <h5>Entradas</h5>
+          <p>Adulto: $180</p>
+          <p>Niño: $120</p>
+          <h5>Extras</h5>
+          <p>Silla: $30</p>
+          <p>Mesa: $50</p>
+          <p>Sombrilla: $50</p>
+        </div>
+        <div class="col-lg-6">
+          <h5>Hospedaje</h5>
+          <p><strong>Cabañas:</strong></p>
+          <p>4 personas: $2500</p>
+          <p>6 personas: $3000</p>
+          <p><strong>Casas de Campaña:</strong></p>
+          <p>4 personas: $150</p>
+          <p>8 personas: $180</p>
+          <p>12 personas: $220</p>
+          <p><strong>Espacio para Casa Propia:</strong> $350</p>
+        </div>
+      </div>
+    </div>
+  </section>
+        <!-- Seccion 6: Contacto -->
+        <section id="section_6" class="section-padding">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <h2>Contacto</h2>
+                        <p>Email: contacto@aquaparaiso.com | Tel: 555-123-4567</p>
+                        <p>Dirección: Carretera Km 42, Paraje El Lago, México</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>
